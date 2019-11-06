@@ -15,8 +15,8 @@ public final class Column {
 
     private final boolean isNullable;
 
-    public Column(@NonNull String name,
-                  boolean isNullable) {
+    private Column(@NonNull String name,
+                   boolean isNullable) {
         this.name = name;
         this.isNullable = isNullable;
     }
@@ -33,5 +33,34 @@ public final class Column {
     @Override
     public int hashCode() {
         return Objects.hash(name, isNullable);
+    }
+
+    @Override
+    public String toString() {
+        return "Column{" +
+                "name='" + name + '\'' +
+                ", isNullable=" + isNullable +
+                '}';
+    }
+
+    public static class Builder {
+
+        private String name;
+
+        private boolean isNullable;
+
+        public Builder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder setIsNullable(boolean isNullable) {
+            this.isNullable = isNullable;
+            return this;
+        }
+
+        public Column createColumn() {
+            return new Column(name, isNullable);
+        }
     }
 }

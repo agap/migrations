@@ -14,7 +14,7 @@ public final class Schema {
     @NonNull
     private final List<Table> tables;
 
-    public Schema(@NonNull List<Table> tables) {
+    private Schema(@NonNull List<Table> tables) {
         this.tables = tables;
     }
 
@@ -29,5 +29,26 @@ public final class Schema {
     @Override
     public int hashCode() {
         return Objects.hash(tables);
+    }
+
+    @Override
+    public String toString() {
+        return "Schema{" +
+                "tables=" + tables +
+                '}';
+    }
+
+    static class SchemaBuilder {
+
+        private List<Table> tables;
+
+        SchemaBuilder setTables(List<Table> tables) {
+            this.tables = tables;
+            return this;
+        }
+
+        Schema createSchema() {
+            return new Schema(tables);
+        }
     }
 }

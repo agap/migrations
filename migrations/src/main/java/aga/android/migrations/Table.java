@@ -1,5 +1,6 @@
 package aga.android.migrations;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,8 +18,8 @@ public final class Table {
     @NonNull
     private final List<Column> columns;
 
-    public Table(@NonNull String name,
-                 @NonNull List<Column> columns) {
+    private Table(@NonNull String name,
+                  @NonNull List<Column> columns) {
         this.name = name;
         this.columns = columns;
     }
@@ -35,5 +36,34 @@ public final class Table {
     @Override
     public int hashCode() {
         return Objects.hash(name, columns);
+    }
+
+    @Override
+    public String toString() {
+        return "Table{" +
+                "name='" + name + '\'' +
+                ", columns=" + columns +
+                '}';
+    }
+
+    public static class Builder {
+
+        private String name;
+
+        private List<Column> columns = Collections.emptyList();
+
+        public Builder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        Builder setColumns(List<Column> columns) {
+            this.columns = columns;
+            return this;
+        }
+
+        Table createTable() {
+            return new Table(name, columns);
+        }
     }
 }
