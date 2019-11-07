@@ -418,6 +418,8 @@ final class SchemaListener implements SQLiteListener {
             }
         } else if (ctx.K_PRIMARY() != null && ctx.K_KEY() != null) {
             columnBuilder.setIsPrimaryKey(true);
+        } else if (ctx.K_DEFAULT() != null) {
+            columnBuilder.setDefaultValue(ctx.children.get(1).getText());
         }
         System.out.println("Enter column constraint");
     }

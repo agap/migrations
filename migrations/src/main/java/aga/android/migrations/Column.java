@@ -3,6 +3,7 @@ package aga.android.migrations;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * Created on 05.11.19
@@ -17,15 +18,20 @@ public final class Column {
 
     private final boolean isPrimaryKey;
 
+    @Nullable
+    private final String defaultValue;
+
     private final Affinity type;
 
     private Column(@NonNull String name,
                    boolean isNullable,
                    boolean isPrimaryKey,
+                   @Nullable String defaultValue,
                    @NonNull Affinity type) {
         this.name = name;
         this.isNullable = isNullable;
         this.isPrimaryKey = isPrimaryKey;
+        this.defaultValue = defaultValue;
         this.type = type;
     }
 
@@ -37,12 +43,13 @@ public final class Column {
         return isNullable == column.isNullable &&
                 isPrimaryKey == column.isPrimaryKey &&
                 type == column.type &&
+                Objects.equals(defaultValue, column.defaultValue) &&
                 name.equals(column.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, isNullable, isPrimaryKey, type);
+        return Objects.hash(name, isNullable, isPrimaryKey, type, defaultValue);
     }
 
     @Override
@@ -52,12 +59,15 @@ public final class Column {
                 ", isNullable=" + isNullable +
                 ", isPrimaryKey=" + isPrimaryKey +
                 ", type=" + type +
+                ", default=" + defaultValue +
                 '}';
     }
 
     public static class Builder {
 
         private String name;
+
+        private String defaultValue;
 
         private boolean isNullable = true;
 
@@ -85,8 +95,13 @@ public final class Column {
             return this;
         }
 
+        Builder setDefaultValue(String defaultValue) {
+            this.defaultValue = defaultValue;
+            return this;
+        }
+
         Column createColumn() {
-            return new Column(name, isNullable, isPrimaryKey, type);
+            return new Column(name, isNullable, isPrimaryKey, defaultValue, type);
         }
     }
 }

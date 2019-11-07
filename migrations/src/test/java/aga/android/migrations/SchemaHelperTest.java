@@ -51,6 +51,7 @@ public class SchemaHelperTest {
                                     .createColumn(),
                                 new Column.Builder()
                                     .setName("name")
+                                    .setDefaultValue("\'John Doe\'")
                                     .setType(Affinity.TEXT)
                                     .setIsNullable(true)
                                     .createColumn()
