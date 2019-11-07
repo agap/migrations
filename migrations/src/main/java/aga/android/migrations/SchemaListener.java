@@ -2,9 +2,11 @@ package aga.android.migrations;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
+import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import androidx.annotation.Nullable;
@@ -447,10 +449,52 @@ final class SchemaListener implements SQLiteListener {
 
     @Override
     public void enterForeign_key_clause(SQLiteParser.Foreign_key_clauseContext ctx) {
-        foreignKeyBuilder.setReferenceTable(ctx.foreign_table().getText());
-        foreignKeyBuilder.setReferenceField(ctx.getChild(3).getText());
+
+        final Iterator<ParseTree> iterator = ctx.children.iterator();
+
+        while (iterator.hasNext()) {
+            final ParseTree parseTree = iterator.next();
+
+            if (parseTree.getText().equalsIgnoreCase("references")) {
+                final ParseTree table = iterator.next();
+
+                foreignKeyBuilder.setReferenceTable(table.getText());
+            } else if (parseTree.getText().equals("(")) {
+                final ParseTree referenceField = iterator.next();
+
+                foreignKeyBuilder.setReferenceField(referenceField.getText());
+            } else if (parseTree.getText().equalsIgnoreCase("update")) {
+                foreignKeyBuilder.setOnUpdate(extractForeignKeyAction(iterator));
+            } else if (parseTree.getText().equalsIgnoreCase("delete")) {
+                foreignKeyBuilder.setOnDelete(extractForeignKeyAction(iterator));
+            }
+        }
 
         System.out.println("Enter foreign key clause");
+    }
+
+    private ForeignKeyAction extractForeignKeyAction(final Iterator<ParseTree> iterator) {
+        final String action = iterator.next().getText();
+
+        final ForeignKeyAction keyAction;
+
+        if (action.equalsIgnoreCase("no")) {
+            keyAction = ForeignKeyAction.NO_ACTION;
+        } else if (action.equalsIgnoreCase("restrict")) {
+            keyAction = ForeignKeyAction.RESTRICT;
+        } else if (action.equalsIgnoreCase("cascade")) {
+            keyAction = ForeignKeyAction.CASCADE;
+        } else {
+            final String additionalField = iterator.next().getText();
+
+            if (additionalField.equalsIgnoreCase("null")) {
+                keyAction = ForeignKeyAction.SET_NULL;
+            } else {
+                keyAction = ForeignKeyAction.SET_DEFAULT;
+            }
+        }
+
+        return keyAction;
     }
 
     @Override

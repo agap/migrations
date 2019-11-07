@@ -31,7 +31,7 @@ public class SchemaHelperTest {
     " id integer primary key not null," +
     " name text," +
     " parentId integer not null," +
-    " foreign key (parentId) references Parent (id)" +
+    " foreign key (parentId) references Parent (id) on update cascade on delete no action" +
     ");";
 
     @Test
@@ -99,6 +99,8 @@ public class SchemaHelperTest {
                                     .setKeyName("parentId")
                                     .setReferenceTable("Parent")
                                     .setReferenceField("id")
+                                    .setOnDelete(ForeignKeyAction.NO_ACTION)
+                                    .setOnUpdate(ForeignKeyAction.CASCADE)
                                     .createForeignKey()
                             )
                         )
