@@ -567,16 +567,6 @@ public interface SQLiteListener extends ParseTreeListener {
 	 */
 	void exitCompound_operator(SQLiteParser.Compound_operatorContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link SQLiteParser#cte_table_name}.
-	 * @param ctx the parse tree
-	 */
-	void enterCte_table_name(SQLiteParser.Cte_table_nameContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SQLiteParser#cte_table_name}.
-	 * @param ctx the parse tree
-	 */
-	void exitCte_table_name(SQLiteParser.Cte_table_nameContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link SQLiteParser#signed_number}.
 	 * @param ctx the parse tree
 	 */
@@ -676,6 +666,26 @@ public interface SQLiteListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitDatabase_name(SQLiteParser.Database_nameContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SQLiteParser#schema_name}.
+	 * @param ctx the parse tree
+	 */
+	void enterSchema_name(SQLiteParser.Schema_nameContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SQLiteParser#schema_name}.
+	 * @param ctx the parse tree
+	 */
+	void exitSchema_name(SQLiteParser.Schema_nameContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link SQLiteParser#table_function_name}.
+	 * @param ctx the parse tree
+	 */
+	void enterTable_function_name(SQLiteParser.Table_function_nameContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SQLiteParser#table_function_name}.
+	 * @param ctx the parse tree
+	 */
+	void exitTable_function_name(SQLiteParser.Table_function_nameContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SQLiteParser#table_name}.
 	 * @param ctx the parse tree
