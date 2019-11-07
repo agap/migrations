@@ -393,6 +393,7 @@ final class SchemaListener implements SQLiteListener {
 
     @Override
     public void enterType_name(SQLiteParser.Type_nameContext ctx) {
+        columnBuilder.setType(Affinity.of(ctx.getText()));
         System.out.println("Enter column type");
     }
 

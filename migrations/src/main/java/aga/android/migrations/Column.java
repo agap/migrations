@@ -17,12 +17,16 @@ public final class Column {
 
     private final boolean isPrimaryKey;
 
+    private final Affinity type;
+
     private Column(@NonNull String name,
                    boolean isNullable,
-                   boolean isPrimaryKey) {
+                   boolean isPrimaryKey,
+                   @NonNull Affinity type) {
         this.name = name;
         this.isNullable = isNullable;
         this.isPrimaryKey = isPrimaryKey;
+        this.type = type;
     }
 
     @Override
@@ -32,12 +36,13 @@ public final class Column {
         Column column = (Column) o;
         return isNullable == column.isNullable &&
                 isPrimaryKey == column.isPrimaryKey &&
+                type == column.type &&
                 name.equals(column.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, isNullable, isPrimaryKey);
+        return Objects.hash(name, isNullable, isPrimaryKey, type);
     }
 
     @Override
@@ -46,6 +51,7 @@ public final class Column {
                 "name='" + name + '\'' +
                 ", isNullable=" + isNullable +
                 ", isPrimaryKey=" + isPrimaryKey +
+                ", type=" + type +
                 '}';
     }
 
@@ -56,6 +62,8 @@ public final class Column {
         private boolean isNullable = true;
 
         private boolean isPrimaryKey = false;
+
+        private Affinity type;
 
         public Builder setName(String name) {
             this.name = name;
@@ -72,8 +80,13 @@ public final class Column {
             return this;
         }
 
+        public Builder setType(Affinity type) {
+            this.type = type;
+            return this;
+        }
+
         public Column createColumn() {
-            return new Column(name, isNullable, isPrimaryKey);
+            return new Column(name, isNullable, isPrimaryKey, type);
         }
     }
 }

@@ -11,7 +11,7 @@ public class SchemaHelperTest {
 
     private static final String USER_TABLE_DEFINITION = "create table User (" +
     " id integer primary key not null," +
-    " name text default `John Doe`" +
+    " name varchar(255) default \'John Doe\'" +
     ");";
 
     @Test
@@ -25,11 +25,13 @@ public class SchemaHelperTest {
                             Arrays.asList(
                                 new Column.Builder()
                                     .setName("id")
+                                    .setType(Affinity.INTEGER)
                                     .setIsNullable(false)
                                     .setIsPrimaryKey(true)
                                     .createColumn(),
                                 new Column.Builder()
                                     .setName("name")
+                                    .setType(Affinity.TEXT)
                                     .setIsNullable(true)
                                     .createColumn()
                             )
