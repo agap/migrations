@@ -66,7 +66,7 @@ class ForeignKey {
                 '}';
     }
 
-    public static class Builder {
+    static class Builder {
 
         private String referenceTable;
 
@@ -78,32 +78,32 @@ class ForeignKey {
 
         private ForeignKeyAction onDelete;
 
-        public Builder setReferenceTable(String referenceTable) {
+        Builder setReferenceTable(String referenceTable) {
             this.referenceTable = referenceTable;
             return this;
         }
 
-        public Builder setReferenceField(String referenceField) {
+        Builder setReferenceField(String referenceField) {
             this.referenceField = referenceField;
             return this;
         }
 
-        public Builder setKeyName(String keyName) {
+        Builder setKeyName(String keyName) {
             this.keyName = keyName;
             return this;
         }
 
-        public Builder setOnUpdate(ForeignKeyAction onUpdate) {
+        Builder setOnUpdate(ForeignKeyAction onUpdate) {
             this.onUpdate = onUpdate;
             return this;
         }
 
-        public Builder setOnDelete(ForeignKeyAction onDelete) {
+        Builder setOnDelete(ForeignKeyAction onDelete) {
             this.onDelete = onDelete;
             return this;
         }
 
-        public ForeignKey createForeignKey() {
+        ForeignKey createForeignKey() {
             return new ForeignKey(referenceTable, referenceField, keyName, onUpdate, onDelete);
         }
     }

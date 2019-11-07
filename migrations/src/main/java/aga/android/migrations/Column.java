@@ -70,22 +70,22 @@ public final class Column {
             return this;
         }
 
-        public Builder setIsNullable(boolean isNullable) {
+        Builder setIsNullable(boolean isNullable) {
             this.isNullable = isNullable;
             return this;
         }
 
-        public Builder setIsPrimaryKey(boolean isPrimaryKey) {
+        Builder setIsPrimaryKey(boolean isPrimaryKey) {
             this.isPrimaryKey = isPrimaryKey;
             return this;
         }
 
-        public Builder setType(Affinity type) {
+        Builder setType(Affinity type) {
             this.type = type;
             return this;
         }
 
-        public Column createColumn() {
+        Column createColumn() {
             return new Column(name, isNullable, isPrimaryKey, type);
         }
     }
