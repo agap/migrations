@@ -409,6 +409,8 @@ final class SchemaListener implements SQLiteListener {
             } else {
                 columnBuilder.setIsNullable(true);
             }
+        } else if (ctx.K_PRIMARY() != null && ctx.K_KEY() != null) {
+            columnBuilder.setIsPrimaryKey(true);
         }
         System.out.println("Enter column constraint");
     }

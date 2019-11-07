@@ -26,6 +26,7 @@ public class SchemaHelperTest {
                                 new Column.Builder()
                                     .setName("id")
                                     .setIsNullable(false)
+                                    .setIsPrimaryKey(true)
                                     .createColumn(),
                                 new Column.Builder()
                                     .setName("name")
