@@ -18,10 +18,15 @@ public final class Table {
     @NonNull
     private final List<Column> columns;
 
+    @NonNull
+    private final List<ForeignKey> foreignKeys;
+
     private Table(@NonNull String name,
-                  @NonNull List<Column> columns) {
+                  @NonNull List<Column> columns,
+                  @NonNull List<ForeignKey> foreignKeys) {
         this.name = name;
         this.columns = columns;
+        this.foreignKeys = foreignKeys;
     }
 
     @Override
@@ -30,12 +35,13 @@ public final class Table {
         if (o == null || getClass() != o.getClass()) return false;
         Table table = (Table) o;
         return name.equals(table.name) &&
-                columns.equals(table.columns);
+                columns.equals(table.columns) &&
+                foreignKeys.equals(table.foreignKeys);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, columns);
+        return Objects.hash(name, columns, foreignKeys);
     }
 
     @Override
@@ -43,6 +49,7 @@ public final class Table {
         return "Table{" +
                 "name='" + name + '\'' +
                 ", columns=" + columns +
+                ", foreignKeys=" + foreignKeys +
                 '}';
     }
 
@@ -51,6 +58,8 @@ public final class Table {
         private String name;
 
         private List<Column> columns = Collections.emptyList();
+
+        private List<ForeignKey> foreignKeys = Collections.emptyList();
 
         public Builder setName(String name) {
             this.name = name;
@@ -62,8 +71,13 @@ public final class Table {
             return this;
         }
 
+        Builder setForeignKeys(List<ForeignKey> foreignKeys) {
+            this.foreignKeys = foreignKeys;
+            return this;
+        }
+
         Table createTable() {
-            return new Table(name, columns);
+            return new Table(name, columns, foreignKeys);
         }
     }
 }

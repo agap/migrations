@@ -20,7 +20,10 @@ final class SchemaListener implements SQLiteListener {
 
     private Column.Builder columnBuilder;
 
+    private ForeignKey.Builder foreignKeyBuilder;
+
     private final List<Column> columns = new ArrayList<>();
+    private final List<ForeignKey> foreignKeys = new ArrayList<>();
 
     @Nullable
     Table getTable() {
@@ -146,6 +149,7 @@ final class SchemaListener implements SQLiteListener {
     @Override
     public void exitCreate_table_stmt(SQLiteParser.Create_table_stmtContext ctx) {
         tableBuilder.setColumns(columns);
+        tableBuilder.setForeignKeys(foreignKeys);
         System.out.println("Exit create");
     }
 
@@ -443,12 +447,16 @@ final class SchemaListener implements SQLiteListener {
 
     @Override
     public void enterForeign_key_clause(SQLiteParser.Foreign_key_clauseContext ctx) {
+        foreignKeyBuilder.setReferenceTable(ctx.foreign_table().getText());
+        foreignKeyBuilder.setReferenceField(ctx.getChild(3).getText());
 
+        System.out.println("Enter foreign key clause");
     }
 
     @Override
     public void exitForeign_key_clause(SQLiteParser.Foreign_key_clauseContext ctx) {
-
+        foreignKeys.add(foreignKeyBuilder.createForeignKey());
+        System.out.println("Exit foreign key clause");
     }
 
     @Override
@@ -473,6 +481,8 @@ final class SchemaListener implements SQLiteListener {
 
     @Override
     public void enterTable_constraint(SQLiteParser.Table_constraintContext ctx) {
+        foreignKeyBuilder = new ForeignKey.Builder();
+        foreignKeyBuilder.setKeyName(ctx.column_name(0).getText());
         System.out.println("Enter table constraint");
     }
 
