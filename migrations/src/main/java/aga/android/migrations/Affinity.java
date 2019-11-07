@@ -13,11 +13,13 @@ public enum Affinity {
     TEXT;
 
     static Affinity of(@NonNull final String columnDefinitionType) {
-        if (columnDefinitionType.equalsIgnoreCase("integer")) {
+        if (columnDefinitionType.equalsIgnoreCase("integer")
+                || columnDefinitionType.equalsIgnoreCase("boolean")) {
             return INTEGER;
         } else if (columnDefinitionType.equalsIgnoreCase("real")) {
             return REAL;
         } else if (columnDefinitionType.equalsIgnoreCase("text")
+                || columnDefinitionType.equalsIgnoreCase("date")
                 || columnDefinitionType.toLowerCase().contains("varchar")) {
             return TEXT;
         } else {
