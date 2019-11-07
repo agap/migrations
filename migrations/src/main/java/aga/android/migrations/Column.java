@@ -47,7 +47,7 @@ public final class Column {
 
         private String name;
 
-        private boolean isNullable;
+        private boolean isNullable = true;
 
         public Builder setName(String name) {
             this.name = name;

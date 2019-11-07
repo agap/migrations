@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
  * Created on 06.11.19
  * @author artem
  */
+// todo inherit from SQLiteBaseListener instead
 final class SchemaListener implements SQLiteListener {
 
     private Table.Builder tableBuilder;
@@ -402,6 +403,13 @@ final class SchemaListener implements SQLiteListener {
 
     @Override
     public void enterColumn_constraint(SQLiteParser.Column_constraintContext ctx) {
+        if (ctx.K_NULL() != null) {
+            if (ctx.K_NOT() != null) {
+                columnBuilder.setIsNullable(false);
+            } else {
+                columnBuilder.setIsNullable(true);
+            }
+        }
         System.out.println("Enter column constraint");
     }
 
@@ -591,12 +599,22 @@ final class SchemaListener implements SQLiteListener {
     }
 
     @Override
-    public void enterCte_table_name(SQLiteParser.Cte_table_nameContext ctx) {
+    public void enterSchema_name(SQLiteParser.Schema_nameContext ctx) {
 
     }
 
     @Override
-    public void exitCte_table_name(SQLiteParser.Cte_table_nameContext ctx) {
+    public void exitSchema_name(SQLiteParser.Schema_nameContext ctx) {
+
+    }
+
+    @Override
+    public void enterTable_function_name(SQLiteParser.Table_function_nameContext ctx) {
+
+    }
+
+    @Override
+    public void exitTable_function_name(SQLiteParser.Table_function_nameContext ctx) {
 
     }
 

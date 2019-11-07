@@ -25,9 +25,11 @@ public class SchemaHelperTest {
                             Arrays.asList(
                                 new Column.Builder()
                                     .setName("id")
+                                    .setIsNullable(false)
                                     .createColumn(),
                                 new Column.Builder()
                                     .setName("name")
+                                    .setIsNullable(true)
                                     .createColumn()
                             )
                         )
