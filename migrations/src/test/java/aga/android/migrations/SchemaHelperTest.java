@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.Collections;
 
+import static aga.android.migrations.SchemaHelper.toSchema;
 import static java.util.Collections.singletonList;
 import static org.junit.Assert.assertEquals;
 
@@ -13,6 +14,17 @@ public class SchemaHelperTest {
     private static final String PARENT_TABLE_DEFINITION = "create table Parent (" +
     " id integer primary key not null," +
     " name varchar(255) default \'John Doe\'" +
+    ");";
+
+    private static final String PARENT_TABLE_DEFINITION_DIFFERENT_ORDER =
+    "create table Parent (" +
+    " id integer not null primary key," +
+    " name varchar(255) default \'John Doe\'" +
+    ");";
+
+    private static final String PARENT_TABLE_DEFINITION_CAPS = "CREATE TABLE Parent (" +
+    " id INTEGER PRIMARY KEY NOT NULL," +
+    " name VARCHAR(255) DEFAULT \'John Doe\'" +
     ");";
 
     private static final String CHILDREN_TABLE_DEFINITION = "create table Child (" +
@@ -49,7 +61,7 @@ public class SchemaHelperTest {
             )
             .createSchema();
 
-        final Schema actual = SchemaHelper.toSchema(singletonList(PARENT_TABLE_DEFINITION));
+        final Schema actual = toSchema(singletonList(PARENT_TABLE_DEFINITION));
 
         assertEquals(expected, actual);
     }
@@ -95,8 +107,24 @@ public class SchemaHelperTest {
             )
             .createSchema();
 
-        final Schema actual = SchemaHelper.toSchema(singletonList(CHILDREN_TABLE_DEFINITION));
+        final Schema actual = toSchema(singletonList(CHILDREN_TABLE_DEFINITION));
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testLowerAndUpperCaseKeyWordsDoNoAffectSchema() {
+        final Schema lowerCaseSchema = toSchema(singletonList(PARENT_TABLE_DEFINITION));
+        final Schema upperCaseSchema = toSchema(singletonList(PARENT_TABLE_DEFINITION_CAPS));
+
+        assertEquals(lowerCaseSchema, upperCaseSchema);
+    }
+
+    @Test
+    public void testKeywordOrderDoesNotAffectSchema() {
+        final Schema schema1 = toSchema(singletonList(PARENT_TABLE_DEFINITION));
+        final Schema schema2 = toSchema(singletonList(PARENT_TABLE_DEFINITION_DIFFERENT_ORDER));
+
+        assertEquals(schema1, schema2);
     }
 }
