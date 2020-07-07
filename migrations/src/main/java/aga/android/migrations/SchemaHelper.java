@@ -12,6 +12,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import aga.android.migrations.antlr.SQLiteLexer;
+import aga.android.migrations.antlr.SQLiteParser;
+
 /**
  * Created on 05.11.19
  * @author artem

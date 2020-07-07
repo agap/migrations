@@ -1,12 +1,14 @@
 package aga.android.migrations;
 
-import androidx.annotation.Nullable;
-
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import aga.android.migrations.antlr.SQLiteBaseListener;
+import aga.android.migrations.antlr.SQLiteParser;
+import androidx.annotation.Nullable;
 
 /**
  * Created on 06.11.19
