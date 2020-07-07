@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 29
@@ -30,6 +31,7 @@ dependencies {
     implementation "org.antlr:antlr4-runtime:4.7"
 
     implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     testImplementation 'junit:junit:4.12'
     testImplementation group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
