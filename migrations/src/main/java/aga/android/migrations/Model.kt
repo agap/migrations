@@ -11,8 +11,8 @@ data class Schema internal constructor(private val tables: List<Table>)
 
 internal data class Table (
     private val name: String,
-    private val columns: List<Column>,
-    private val foreignKeys: List<ForeignKey> = emptyList()
+    private val columns: Set<Column>,
+    private val foreignKeys: Set<ForeignKey> = emptySet()
 )
 
 internal data class Column (

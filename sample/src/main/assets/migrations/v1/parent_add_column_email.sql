@@ -1,0 +1,1 @@
+alter table parent add column email text not null default 'default@mail.com';

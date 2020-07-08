@@ -22,15 +22,15 @@ internal class SchemaListener : SQLiteBaseListener() {
     private lateinit var columnBuilder: Column.Builder
     private lateinit var foreignKeyBuilder: ForeignKey.Builder
 
-    private lateinit var columns: MutableList<Column>
-    private lateinit var foreignKeys: MutableList<ForeignKey>
+    private lateinit var columns: MutableSet<Column>
+    private lateinit var foreignKeys: MutableSet<ForeignKey>
 
     val table: Table
         get() = Table(tableName, columns = columns, foreignKeys = foreignKeys)
 
     override fun enterCreate_table_stmt(ctx: Create_table_stmtContext) {
-        columns = ArrayList()
-        foreignKeys = ArrayList()
+        columns = mutableSetOf()
+        foreignKeys = mutableSetOf()
     }
 
     override fun enterColumn_def(ctx: Column_defContext) {

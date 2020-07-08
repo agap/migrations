@@ -1,0 +1,1 @@
+create table parent (id integer primary key not null, name varchar(255))
