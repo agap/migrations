@@ -1,2 +1,2 @@
-include ':app', ':migrations'
+include ':sample', ':migrations'
 rootProject.name='MigrationTest'
