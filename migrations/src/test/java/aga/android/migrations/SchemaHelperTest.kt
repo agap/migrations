@@ -12,7 +12,7 @@ class SchemaHelperTest {
                 Table(
                     name = "Parent",
                     columns = (
-                        listOf(
+                        setOf(
                             Column.Builder()
                                 .setName("id")
                                 .setType(Affinity.INTEGER)
@@ -41,7 +41,7 @@ class SchemaHelperTest {
             tables = listOf(
                 Table(
                     name = "Child",
-                    columns = listOf(
+                    columns = setOf(
                         Column.Builder()
                             .setName("id")
                             .setType(Affinity.INTEGER)
@@ -59,7 +59,7 @@ class SchemaHelperTest {
                             .setIsNullable(false)
                             .build()
                         ),
-                    foreignKeys = listOf(
+                    foreignKeys = setOf(
                         ForeignKey.Builder()
                             .setKeyName("parentId")
                             .setReferenceTable("Parent")
