@@ -7,7 +7,13 @@ import java.util.*
  * @author artem
  */
 
-data class Schema internal constructor(private val tables: List<Table>)
+data class Schema internal constructor(private val tables: List<Table>) {
+
+    fun diffWith(schema: Schema): String = tables
+            .find { schema.tables.contains(it).not() }
+            ?.let { "The exact match was not found for table $it in $schema" }
+            ?: "Schemas match"
+}
 
 internal data class Table (
     private val name: String,

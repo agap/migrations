@@ -43,7 +43,11 @@ class DatabaseMigrationTest {
         val schemaForMigratedUsers = schemaExtractor.extract(database.readableDatabase)
 
         // then
-        assertEquals(schemaForNewUsers, schemaForMigratedUsers)
+        assertEquals(
+            schemaForMigratedUsers.diffWith(schemaForNewUsers),
+            schemaForNewUsers,
+            schemaForMigratedUsers
+        )
     }
 
     private fun recreateTheInitialDbState(context: Context, database: SQLiteDatabase) {
