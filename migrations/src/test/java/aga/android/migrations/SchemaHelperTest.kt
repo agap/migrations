@@ -8,7 +8,7 @@ class SchemaHelperTest {
     @Test
     fun testColumnInfoExtraction() {
         val expected = Schema(
-            listOf(
+            setOf(
                 Table(
                     name = "Parent",
                     columns = (
@@ -38,7 +38,7 @@ class SchemaHelperTest {
     @Test
     fun testForeignKeyInfoExtraction() {
         val expected = Schema(
-            tables = listOf(
+            tables = setOf(
                 Table(
                     name = "Child",
                     columns = setOf(
