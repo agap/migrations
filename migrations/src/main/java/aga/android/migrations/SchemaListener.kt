@@ -117,7 +117,7 @@ internal class SchemaListener : SQLiteBaseListener() {
     }
 
     override fun enterTable_name(ctx: Table_nameContext) {
-        tableName = ctx.text
+        tableName = ctx.text.replace("\"", "");
     }
 
     override fun enterColumn_name(ctx: Column_nameContext) {

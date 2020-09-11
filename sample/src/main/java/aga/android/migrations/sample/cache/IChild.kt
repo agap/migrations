@@ -8,7 +8,7 @@ import io.requery.ReferentialAction
 import io.requery.Table
 
 @Entity
-@Table(name = "child")
+@Table(name = "\"child\"")
 interface IChild {
 
     @get:Generated
