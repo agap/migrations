@@ -37,6 +37,6 @@ object SchemaHelper {
             }
         }
 
-        return Schema(tables)
+        return Schema(tables.toSet())
     }
 }
