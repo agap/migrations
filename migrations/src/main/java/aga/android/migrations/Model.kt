@@ -7,7 +7,7 @@ import java.util.*
  * @author artem
  */
 
-data class Schema internal constructor(private val tables: List<Table>) {
+data class Schema internal constructor(private val tables: Set<Table>) {
 
     fun diffWith(schema: Schema): String = tables
             .find { schema.tables.contains(it).not() }
